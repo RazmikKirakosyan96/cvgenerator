@@ -1,29 +1,40 @@
 import React, { useState } from 'react';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-function HobbyForm () {
-  const [sport,setSport] = useState('')
-  const [art,setArt] = useState('')
-  const [other,setOther] = useState('')
-  const[currentPage, setCurrentPage] = useState(2)
-    return (
-      <form>
-        <h1>Hello</h1>
-        <p> A sport that is your hobby:</p>
-        <TextField id="standard-basic" label="sport"  value={sport} onChange={(e) => setSport(e.target.value)}/>
-        <p>An art form that is your hobby:</p>
-        <TextField id="standard-basic" label="art" value={art} onChange={(e) => setArt(e.target.value)}/>
-        <p>Please enter your hobby in other cases:</p>
-        <TextField id="standard-basic" label="other" value={other} onChange={(e) => setOther(e.target.value)}/>
-        <button onClick={() => setCurrentPage(currentPage + 0)}>Prev</button>
-        <Button variant="contained" color="primary">Save</Button>
 
-      </form>
-    );
+
+
+function HobbyForm() {
+  const [,] = useState('')
+  const [,] = useState('')
+  const [,] = useState('')
+  return (
+    <form>
+      <h1>Hello</h1>
+      <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
+      <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
+      <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
+      <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
+      <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
+      
+    </form>
+  );
 }
 
-export default  HobbyForm
+export default HobbyForm
 
 
 
+{/* const setCurrentPage = (props) => {
+      const currentPage = props.currentPage;
+      switch (currentPage) {
+        case 0:
+          return <PersonalForm />;
+        case 1:
+          return <EducationForm />;
+        case 2:
+          return <HobbyForm />;
+        default:
+          return null;*/}
