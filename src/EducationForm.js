@@ -1,25 +1,32 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import './EducationForm.css'
 
+function EducationForm({ currentPage, setCurrentPage }) {
+  const [schoolName, setSchoolName] = useState('');
+  const [collegeName, setCollegeName] = useState('');
+  const [universityName, setUniversityName] = useState('');
+  const [degree, setDegree] = useState('');
 
-function EducationForm() {
-  const [schoolname, setSchoolname] = useState('');
-  const [universityname, setUniversityname] = useState('');
-  const [studyname, setStudyname] = useState('');
-  const [currentPage, setCurrentPage] = useState(0);
 
   return (
-    <form>
-      <h1>Hello</h1>
-      <p>The name of your school</p>
-      <TextField label="school-name" value={schoolname} onChange={(e) => setSchoolname(e.target.value)} />
-      <p>The name of your institute</p>
-      <TextField label="institute-name" value={universityname} onChange={(e) => setUniversityname(e.target.value)} />
-      <p>Your field of study </p>
-      <TextField label="fild-name" value={studyname} onChange={(e) => setStudyname(e.target.value)} />
-      <Button variant="contained" color="primary" onClick={() => setCurrentPage(currentPage - 1)}>Prev</Button>
-      <Button variant="contained" color="primary" onClick={() => setCurrentPage(currentPage + 1)}>Next</Button>
+    <form className="form">
+      <h2>Education information</h2>
+      <p>
+        <TextField label="school-name" value={schoolName} onChange={(e) => setSchoolName(e.target.value)} />
+      </p>
+      <p>
+        <TextField label="college-name" value={collegeName} onChange={(e) => setCollegeName(e.target.value)} />
+      </p>
+      <p>
+        <TextField label="university-name" value={universityName} onChange={(e) => setUniversityName(e.target.value)} />
+      </p>
+      <p>
+        <TextField label="specification degree" value={degree} onChange={(e) => setDegree(e.target.value)} />
+      </p>
+      <Button id="previous" variant="contained" color="primary" onClick={() => setCurrentPage(currentPage - 1)}>Prev</Button>
+      <Button id="next" variant="contained" color="primary" onClick={() => setCurrentPage(currentPage + 1)}>Next</Button>
     </form>
   );
 }
