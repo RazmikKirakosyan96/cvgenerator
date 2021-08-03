@@ -1,64 +1,73 @@
-import React, { useState, useStep, useForm } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import PersonalForm from './PersonalForm';
 import EducationForm from './EducationForm';
 import HobbyForm from './HobbyForm';
 
-const steps = [
-  { currentPage: "personal" },
-  { currentpage: "education" },
-  { currentPage: "hobby" },
-  
-];
-
-const defaultData = {
-  name: "Jane",
-  surName: "Doe",
-  email: "Jan",
-  schoolName: "200 South Main St",
-  collegeName: "Anytown",
-  universityName: "CA",
-  specificationDegree: "90505",
-  art: "email@domain.com",
-  music: "+61 4252 454 332",
-  photography: "",
-  science: "",
-};
-
 
 function App() {
   const [currentPage, setCurrentPage] = useState(1);
-  const {formData, setForm} = useForm(defaultData);
-  const { step, navigation } = useStep({ initialStep: 0, steps });
+  var [data, setData] = useState({
+    "name": "",
+    "surname": "",
+    "email": "",
+    "phoneNumber": "",
+    "schoolName": "",
+    "collegeName": "",
+    "universityName": "",
+    "degree": "",
+    //"hobbydata": ["art", "music", "photography", "science"],
+  });
+
+  function updateData(key, newData) {
+    setData(data => {
+      return { ...data, [key]: newData }
+    });
+  };
+
+  async function postData() {
+    await fetch('/post', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "name": data.name,
+        "surname": data.surname,
+        "email": data.email,
+        "phoneNumber": data.phoneNumber,
+        "schoolName": data.schoolName,
+        "collegeName": data.collegeName,
+        "universityName": data.universityName,
+        "degree": data.degree,
+      })
+    });
+  }
+
+//   async function getPdf() {
+//     let cvData = {};
+//     await (async () => {
+//       const rawResponse = await fetch('get', {
+//         method: 'GET',
+//         headers: {
+//           'responseType': 'blob',
+//           'Content-Type': 'application/json'
+//         },
+//       });
+//       cvData = await rawResponse;
+//     })();
   
-  const props = { formData, setForm, navigation };
-  
-  
-  {/*const { currentPage } = step;
-  const [data, setData] = useState({
-    "personaldata": {
-      "name": "",
-      "surname": "",
-      "email": "",
-      "phoneNumber": ""
-    },
-    "educationdata": {
-      "schoolName": "",
-      "collegeName": "",
-      "universityName": "",
-      "degree": "",
-    },
-    "hobbydata": ["art", "music", "photography", "science"],
-  });*/}
-  
+//     return cvData;
+// }
+
 
   switch (currentPage) {
     case 1:
-      return <PersonalForm currentPage={currentPage} setCurrentPage={setCurrentPage} />;
+      return <PersonalForm currentPage={currentPage} setCurrentPage={setCurrentPage} data={data} update={updateData} />;
     case 2:
-      return <EducationForm currentPage={currentPage} setCurrentPage={setCurrentPage} />;
+      return <EducationForm currentPage={currentPage} setCurrentPage={setCurrentPage} data={data} update={updateData} postData={postData} />;
     case 3:
-      return <HobbyForm currentPage={currentPage} setCurrentPage={setCurrentPage} />;
+      return <HobbyForm currentPage={currentPage} setCurrentPage={setCurrentPage} data={data.hobbydata} update={updateData} />;
     default:
       return null;
   };
